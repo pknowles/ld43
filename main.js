@@ -19,7 +19,7 @@ let ABILITIES = [
     { role: "Scout",           text: "See what lies ahead",             duration: "instant", effects: [ function(world, isActivating) { world.displayUpcomingEvents() }] },
     { role: "Cook",            text: "Prepare human for consumption",   duration: "one day", effects: [ Ability.setGameVar('isFoodPrepared')] },
     { role: "Doctor",          text: "Heal a character",                duration: "instant", effects: [ Ability.chooseCharacter(function(world, character) { world.heal(character) }) ]},
-    { role: "Navigator",       text: "Find a faster path",              duration: "instant", effects: [ Ability.addModifier(1.2, "Faster path found") ]},
+    { role: "Navigator",       text: "Find a faster path",              duration: "one day", effects: [ Ability.addModifier(1.2, "Faster path found") ]},
     { role: "Engineer",        text: "Make a faster sled",              duration: "one day", effects: [ Ability.addModifier(1.2, "The sled has been modified for efficiency. It will now be easier to pull") ]},
     { role: "Mechanic",        text: "Fix things",                      duration: "one day", effects: [ Ability.usePlaceholder() ]},
     { role: "Nurse",           text: "Helps doctor",                    duration: "instant", effects: [ Ability.usePlaceholder() ]},
