@@ -11,7 +11,11 @@ var GameWorld = function(){
     this.getDailyMoveDistance = function() {
         var distance = 0.0;
         for (var i in this.characters) {
-            if (!this.characters[i].activeAbility) {
+            if (this.characters[i].injured) {
+                // Injured people take effort to carry
+                distance -= 0.05;
+            } else if (!this.characters[i].activeAbility) {
+                // Every character not doing other things adds speed
                 distance += this.characters[i].speed;
             }
         }
