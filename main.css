@@ -11,6 +11,8 @@ body, html {
   background-color: #fff;
   background-image: url('background.jpg');
   background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 #stats {
