@@ -87,6 +87,7 @@ var GameWorld = function(){
     }
 
     this.display = function() {
+
         for (var i in this.characters) {
             this.characters[i].display();
         }
@@ -100,7 +101,6 @@ var GameWorld = function(){
             var daysLeft = this.sledDistance + Math.random() - 0.5;
             statsText += `Estimated days left: ${daysLeft}<br/>`;
         }
-
         var numCharsPullingSled = 0;
         for (var i in this.characters) {
             if (!this.characters[i].activeAbility) {
