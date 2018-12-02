@@ -15,7 +15,7 @@ let CHARACTERS = [
 ]
 
 let ABILITIES = [
-    { role: "Bard",     text: "Play Music",      duration: "one day", effects: [ Ability.SetGameVar('isMusicPlaying') ]},
+    { role: "Bard",     text: "Play Music",      duration: "one day", effects: [ Ability.SetGameVar('isMusicPlaying'), function (world, isActivating) {  $("#music")[0].src = isActivating ? "Sacrifice_Bard.mp3" : "Sacrifice.mp3"; world.playMusic() } ]},
     { role: "Scout",    text: "Scout ahead",     duration: "instant", effects: [ function(world, isActivating) { world.displayUpcomingEvents() }] },
     { role: "Cook",     text: "Prepare person",  duration: "one day", effects: [ Ability.SetGameVar('isFoodPrepared')] },
     { role: "Doctor",   text: "Heal Character",  duration: "instant", effects: [ Ability.ChooseCharacter(function(world, character) { world.heal(character) }) ]}

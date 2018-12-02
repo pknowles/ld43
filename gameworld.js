@@ -41,10 +41,7 @@ var GameWorld = function(){
     }
 
     this.advanceDay = function() {
-        var music = $("#music")[0];
-        if (music.paused) {
-            music.play();
-        }
+        this.playMusic();
 
         this.todaysModifiers = [];
 
@@ -58,7 +55,7 @@ var GameWorld = function(){
         }
 
         this.endOfDayCallbacks.forEach(function (cb) { cb(); });
-
+        this.endOfDayCallbacks = []
 
         var totalOutcome = 0.0;
         for (var i in this.events) {
@@ -134,4 +131,11 @@ var GameWorld = function(){
             });
         }
     };
+
+    this.playMusic = function() {
+        var music = $("#music")[0];
+        if (music.paused) {
+            music.play();
+        }
+    }
 }
