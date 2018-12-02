@@ -1,3 +1,6 @@
+
 $(function(){
-  alert("hi");
+  for (var i = 0; i < 5; ++i) {
+    $("#game").append(characterPortraitHTML.clone());
+  }
 })();

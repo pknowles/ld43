@@ -1,3 +1,17 @@
 body {
   background: #aaa;
 }
+
+#game {
+  width: 100%;
+  height: 100%;
+}
+
+.character-portrait {
+  float: left;
+  margin: 16px;
+  padding: 10px;
+  width: 200px;
+  height: 300px;
+  background: #888;
+}
