@@ -32,6 +32,7 @@ var Ability = function(role, text, duration, effects) {
             window.alert(`unhandled ability duration: ${this.duration}`)
 
         this.display(world);
+        world.display()
     }
 
     this.display = function(world) {
@@ -44,11 +45,15 @@ var Ability = function(role, text, duration, effects) {
 };
 
 
-Ability.SetGameVar = function(varName) { return function (world, isActivating) {
+Ability.setGameVar = function(varName) { return function (world, isActivating) {
     world[varName] = isActivating
 }}
-Ability.ChooseCharacter = function(callback) { return function (world, isActivating) {
+Ability.chooseCharacter = function(callback) { return function (world, isActivating) {
     if (isActivating) {
         callback('Bard')
     }
+}}
+Ability.addModifier = function(scale, description) { return function (world, isActivating) {
+    if (isActivating)
+        world.todaysModifiers.push(new Modifier(scale, description))
 }}

@@ -45,22 +45,16 @@ var GameWorld = function(){
         return null;
     }
 
-    this.advanceDay = function() {
-        this.playMusic();
-
+    this.endOfDay = function() {
         this.todaysModifiers = [];
-
-        console.log(this)
-        if (this.isMusicPlaying)
-            window.alert("music is playing");
-
-        for (var i in this.abilities) {
-            this.abilities[i].isActive = false;
-            this.abilities[i].display();
-        }
 
         this.endOfDayCallbacks.forEach(function (cb) { cb(); });
         this.endOfDayCallbacks = []
+    }
+
+    this.advanceDay = function() {
+        this.playMusic();
+        console.log(this)
 
         var totalOutcome = 0.0;
         for (var i in this.events) {
@@ -73,6 +67,8 @@ var GameWorld = function(){
                 this.events[i].perform.bind(this.events[i], this)();
 
                 this.sledDistance -= this.getDailyMoveDistance();
+
+                this.endOfDay();
                 return;
             }
         }
@@ -117,8 +113,8 @@ var GameWorld = function(){
         // FIXME: just for debugging
         if (1) {
             statsText += `Distance: ${this.sledDistance}<br/>
-            Permanent Modifiers: ${this.permanentModifiers}<br/>
-            Todays Modifiers: ${this.todaysModifiers}<br/>
+            Permanent Modifiers: ${JSON.stringify(this.permanentModifiers)}<br/>
+            Todays Modifiers: ${JSON.stringify(this.todaysModifiers)}<br/>
             `
         }
 
