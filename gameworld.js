@@ -1,4 +1,4 @@
-
+ 
 var GameWorld = function(){
     this.characters = [];
     this.sledDistance = 10.0;
