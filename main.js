@@ -1,6 +1,8 @@
 
 $(function(){
-  for (var i = 0; i < 5; ++i) {
-    $("#game").append(characterPortraitHTML.clone());
-  }
-})();
+    var game = new GameWorld();
+    for (var i = 0; i < 5; ++i) {
+        game.characters.push(new Character("somerole"));
+    }
+    game.display();
+});
