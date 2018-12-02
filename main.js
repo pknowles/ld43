@@ -29,7 +29,6 @@ $(function(){
     for (var i = 0; i < CHARACTERS.length; i++) {
         game.characters.push(new Character(game, CHARACTERS[i].role, CHARACTERS[i].description));
         game.characters[i].display();
-        alert(1);
         coll[i].addEventListener("click", function() {
             this.classList.toggle("active");
             var content = this.nextElementSibling;
