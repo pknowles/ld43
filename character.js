@@ -19,7 +19,7 @@ var Character = function(role, description) {
     this.sickness = 0.0;            // severity.
     this.speed = 0.1;               // How much they would move sled
     this.activeAbility = false;     // Set before advancing the day. If false, this character will pull the sled.
-    this.portrait = $("#game").append(characterPortraitHTML(role, description, this.health, this.morale));
+    this.portrait = $("#game #characters").append(characterPortraitHTML(role, description, this.health, this.morale));
     this.update = function() {
         // Some algorithm to update morale, health and speed
         // based on above.

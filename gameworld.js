@@ -79,7 +79,7 @@ var GameWorld = function(){
 
     this.showPopup = function(title, message, callback) {
         var popup = $(`<div class="popup"><h1 class="popup-title">${title}</h1><p>${message}</p><div class="button-close">Close</div></div>`);
-        var gameElement = $("#game");
+        var gameElement = $("#game #main");
         gameElement.append(popup);
         popup.find('.button-close').click(function(){
             popup.remove();
@@ -125,7 +125,7 @@ var GameWorld = function(){
 
         if (!this.nextDayElement.parent().length) {
             var game = this;
-            $("#game").append(this.nextDayElement);
+            $("#game #main").append(this.nextDayElement);
             $("#next-day-btn").click(function(){
                 game.nextDayElement.remove();
                 game.advanceDay();
