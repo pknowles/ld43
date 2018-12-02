@@ -1,5 +1,5 @@
 let CHARACTERS = [
-    { role: "Bard",            description: "A singer and musician who would boost everyone's morale."}, 
+    { role: "Bard",            description: "A singer and musician who would boost everyone's morale."},
     { role: "Scout",           description: "Going ahead, he can see events a day or two ahead."},
     { role: "Cook",            description: "He can cook rather filling meals. What would last one meal would now last two."},
     { role: "Doctor",          description: "He can treat the injured and the sick. But physicians can only do so much..."},
@@ -45,4 +45,3 @@ $(function(){
 
     game.display();
 });
-

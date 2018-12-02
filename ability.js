@@ -17,7 +17,7 @@ var Ability = function(role, text, duration, effects) {
     this.apply = function(world) {
         if (this.isActive)
             return;
-        
+
         // instantaneous
         this.applyEffects(world, true);
         if (this.duration == 'instant') {

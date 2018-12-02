@@ -31,6 +31,10 @@ var GameWorld = function(){
     }
 
     this.advanceDay = function() {
+        var music = $("#music")[0];
+        if (music.paused) {
+            music.play();
+        }
 
         this.todaysModifiers = [];
 
@@ -104,8 +108,12 @@ var GameWorld = function(){
         $("#stats").html(statsText);
 
         if (!this.nextDayElement.parent().length) {
+            var game = this;
             $("#game").append(this.nextDayElement);
-            $("#next-day-btn").click(this.advanceDay.bind(this));
+            $("#next-day-btn").click(function(){
+                game.nextDayElement.remove();
+                game.advanceDay();
+            });
         }
     };
 }
