@@ -22,11 +22,11 @@ let ABILITIES = [
 ]
 
 $(function(){
+
     var game = new GameWorld();
 
     var coll = document.getElementsByClassName("collapsible");
-    var i;
-    for (i = 0; i < CHARACTERS.length; i++) {
+    for (var i = 0; i < CHARACTERS.length; i++) {
         game.characters.push(new Character(CHARACTERS[i].role, CHARACTERS[i].description));
         coll[i].addEventListener("click", function() {
             this.classList.toggle("active");
@@ -43,6 +43,39 @@ $(function(){
         game.abilities.push(new Ability(ABILITIES[i].role, ABILITIES[i].text, ABILITIES[i].duration, ABILITIES[i].effects))
     }
 
-    game.showPopup("Intro", "An antarctic expedition has reached its destination and is returning home but food has run out." +
-        " The team have various talents that may prove useful but in doing so they won't be able to pull the sled. Can you get them home?", game.display.bind(game))
+    var input = document.getElementsByClassName('choice');
+    var choice = 0;
+    for (var i in TEXT_INTRO_CHOICES) {
+        $("#main").append(TEXT_INTRO_CHOICES[i]);
+        input[i].addEventListener('click', function() {
+            $("#storyText").remove();
+            var text = "<div id='storyText'>";
+            if(choice > 2) {
+            } else if (this.value == "Talk to your companions") {
+                text += TEXT_INTRO_TALKING;
+            } else if (this.value == "Stare into the distance desolately") {
+                text += TEXT_INTRO_STARING;
+            } else {
+                text += TEXT_INTRO_THINKING;
+            }
+            if (choice == 0) {
+                text += TEXT_INTRO_2;
+                choice++;
+            } else if (choice == 1) {
+                text += TEXT_INTRO_3;
+                choice++;
+            } else if (choice == 2) {
+                text += TEXT_INTRO_4;
+                choice++;
+            } else if (choice == 3) {
+                text += TEXT_BEGIN;
+                $(".choice").remove();
+            }
+            text += "</div>";
+            $("#main").append(text);
+        });
+    }
+    $("#main").append("<div id='storyText'>" + TEXT_INTRO + "</div>");
+
+
 });
