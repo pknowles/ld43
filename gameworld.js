@@ -74,6 +74,15 @@ var GameWorld = function(){
         }
     }
 
+    this.eatCharacter = function(character) {
+        this.killCharacter(character);
+        if (this.getCharacter("Cook")) {
+            this.foodReserves += 2.0;
+        } else {
+            this.foodReserves += 1.0;
+        }
+    }
+
     this.advanceDay = function() {
         this.playMusic();
         console.log(this)
