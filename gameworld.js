@@ -8,6 +8,11 @@ var GameWorld = function(){
     this.permanentModifiers = [];
     this.todaysModifiers = [];
 
+    this.musicMain = new Howl({ src: 'Sacrifice.mp3' })
+    this.musicBard = new Howl({ src: 'Sacrifice_Bard.mp3' })
+    this.musicMainId = undefined;
+    this.musicBardId = undefined;
+
     this.getDailyMoveDistance = function() {
         var distance = 0.0;
         for (var i in this.characters) {
@@ -133,9 +138,23 @@ var GameWorld = function(){
     };
 
     this.playMusic = function() {
-        var music = $("#music")[0];
-        if (music.paused) {
-            music.play();
+        if (this.musicMainId === undefined) 
+            this.musicMainId = this.musicMain.play()
+    }
+
+    this.startBardMusic = function (shouldStart) { 
+        if (this.musicBardId === undefined) 
+            this.musicBardId = this.musicBard.play(); 
+
+        var a, b, idA, idB;
+        if (shouldStart) {
+            a = this.musicMain; idA = this.musicMainId
+            b = this.musicBard; idB = this.musicBardId
+        } else {
+            a = this.musicBard; idA = this.musicBardId
+            b = this.musicMain; idB = this.musicMainId
         }
+        a.fade(1, 0, 1000, idA)
+        b.fade(0, 1, 1000, idB)
     }
 }
