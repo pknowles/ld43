@@ -81,6 +81,7 @@ var GameWorld = function(){
         } else {
             this.foodReserves += 1.0;
         }
+        this.display();
     }
 
     this.advanceDay = function() {

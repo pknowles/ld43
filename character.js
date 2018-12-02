@@ -20,7 +20,11 @@ var Character = function(gameworld, role, description) {
     this.speed = 0.1;               // How much they would move sled
     this.activeAbility = false;     // Set before advancing the day. If false, this character will pull the sled.
     this.eaten = false;
-    //$(`#${this.role} .eat`).click(function(){gameworld.eat(this);});
+    this.portrait = $(characterPortraitHTML(role, description));
+    $("#game #characters").append(this.portrait);
+    var character = this;
+    $(`#${this.role} .eat`).click(function(){gameworld.eatCharacter(character);});
+
     this.update = function(injured, sickness) {
         this.injured = injured;
         this.sickness = sickness;
@@ -32,9 +36,11 @@ var Character = function(gameworld, role, description) {
                 sickness ? 0.05 :
                 0.1;
     }
+
     this.display = function() {
-        $("#${this.role} .injured").text(this.injured ? "Yes" : "No");
+        $(`#${this.role} .injured`).text(this.injured ? "Yes" : "No");
     }
+
     this.kill = function() {
         this.portrait.remove();
     }
