@@ -182,6 +182,7 @@ var GameWorld = function(){
             $("#next-day-btn").click(function(){
                 game.nextDayElement.remove();
                 game.advanceDay();
+                $("#storyText").remove();
             });
         }
     };
