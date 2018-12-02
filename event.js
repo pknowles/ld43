@@ -5,7 +5,7 @@ var events = [
         description: "",
         probabilityFactor: 1.0,
         perform: function(){
-
+            alert(this.name);
         }
     }
 ];

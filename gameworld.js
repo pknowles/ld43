@@ -24,7 +24,8 @@ var GameWorld = function(){
         for (var i in this.events) {
             outcome -= this.events[i].probabilityFactor;
             if (outcome <= 0.0) {
-                this.events[i].perform();
+                this.events[i].perform.bind(this.events[i])();
+                return;
             }
         }
 
@@ -48,7 +49,7 @@ var GameWorld = function(){
 
         if (!this.nextDayElement.parent().length) {
             $("#game").append(this.nextDayElement);
-            $("#next-day-btn").click(this.advanceDay);
+            $("#next-day-btn").click(this.advanceDay.bind(this));
         }
     };
 }
