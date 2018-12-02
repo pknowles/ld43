@@ -99,7 +99,7 @@ var GameWorld = function(){
         var statsText = "";
         if (this.getCharacter("Navigator")) {
             var daysLeft = this.sledDistance + Math.random() - 0.5;
-            statsText += `Estimated days left: ${daysLeft}`;
+            statsText += `Estimated days left: ${daysLeft}<br/>`;
         }
 
         var numCharsPullingSled = 0;
