@@ -133,6 +133,8 @@ var GameWorld = function(){
         if (this.getCharacter("Navigator")) {
             var daysLeft = Math.round((this.sledDistance + Math.random() - 0.5) * 10.0) / 10.0;
             statsText += `Estimated days left: ${daysLeft}<br/>`;
+        } else {
+            statsText += "Without a navigator you are not sure how close you are to rescue.<br/>"
         }
 
         statsText += `Days of food left: ${this.foodReserves}<br/>`;
@@ -146,7 +148,7 @@ var GameWorld = function(){
         statsText += `Characters pulling the sled: ${numCharsPullingSled}<br/>`;
 
         // FIXME: just for debugging
-        if (1) {
+        if (0) {
             statsText += `Distance: ${this.sledDistance}<br/>
             Permanent Modifiers: ${JSON.stringify(this.permanentModifiers)}<br/>
             Todays Modifiers: ${JSON.stringify(this.todaysModifiers)}<br/>
