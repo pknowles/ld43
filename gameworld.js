@@ -116,6 +116,10 @@ var GameWorld = function(){
 
                 this.sledDistance -= this.getDailyMoveDistance();
 
+                if (this.sledDistance <= 0) {
+                    alert("Good job. You guys made it to the rendezvous point. The rescue team got to you. Next time, don't be drunk when signing up for an expedition to Antarctica.");
+                }
+
                 this.endOfDay();
                 return;
             }
