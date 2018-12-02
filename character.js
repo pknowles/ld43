@@ -5,6 +5,7 @@ function characterPortraitHTML(role, description, health, morale) {
             <p>${description}</p>
             <p>Health: ${health}</p>
             <p>Morale:${morale}</p>
+            <p>Ability:<span class="ability" /> </p>
         </div>
     </div>`;
 }
