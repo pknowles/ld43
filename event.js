@@ -65,7 +65,7 @@ var events = [
             game.todaysModifiers.push(new Modifier(0.8, "Snow storm."));
             if (game.characters.length > 1 && (!game.getCharacter("Leader") || Math.random() < 0.5)) {
                 var character = null;
-                while (character && character.role != "Scout") {
+                while (!character && character.role != "Scout") {
                     character = game.characters[Math.floor(Math.random() * game.characters.length)];
                 }
                 var role = character.role;
@@ -83,14 +83,28 @@ var events = [
         probabilityFactor: 1.0,
         perform: function(game){
             var desc = "The team discovers the snow covered wreck of a plane.";
-            if (Math.random() < 0.5) {
-                desc += " Thankfully the engineer finds a clever way to get it back.";
-                game.todaysModifiers.push(new Modifier(0.8, "The engineer spends barely any time getting the sled out of the crevasse."));
+            if (game.characters.length == CHARACTERS.length || Math.random() < 0.5) {
+                desc += " There is a small amount of food which should last a day.";
+                game.foodReserves += 1.0;
             } else {
-                desc += " Nobody knows what to do so they spend the whole day trying to retrieve it.";
-                game.todaysModifiers.push(new Modifier(0.1, "The team spends the whole day retrieving the sled."));
+                // Find a missing character
+                // TODO: free list
+                var character = null;
+                while (!character) {
+                    character = CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)];
+                    for (var i in game.characters) {
+                        if (game.characters[i].role == character.role) {
+                            character = null;
+                            break;
+                        }
+                    }
+                }
+                game.addCharacter(character);
+                character = game.getCharacter(character.role);
+                character.injured = true;
+                desc += ` There is a survivor, a ${character.role}, but he is badly injured and will need carrying.`;
             }
             game.showPopup(this.name, desc, game.display.bind(game));
         }
-    },
+    }
 ];

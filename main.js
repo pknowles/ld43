@@ -25,19 +25,8 @@ $(function(){
 
     var game = new GameWorld();
 
-    var coll = document.getElementsByClassName("collapsible");
     for (var i = 0; i < CHARACTERS.length; i++) {
-        game.characters.push(new Character(game, CHARACTERS[i].role, CHARACTERS[i].description));
-        game.characters[i].display();
-        coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.maxHeight){
-              content.style.maxHeight = null;
-            } else {
-              content.style.maxHeight = content.scrollHeight + "px";
-            }
-        });
+        game.addCharacter(CHARACTERS[i]);
     }
     for (i = 0; i < ABILITIES.length; i++) {
         game.abilities.push(new Ability(ABILITIES[i].role, ABILITIES[i].text, ABILITIES[i].duration, ABILITIES[i].effects))
