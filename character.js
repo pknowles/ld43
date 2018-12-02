@@ -1,7 +1,12 @@
-
-
 function characterPortraitHTML(role, description, health, morale) {
-    return "<button class='collapsible'>" + role + "</button>" + "<div class='content'><p>" + description + "</p><p>Health: " + health + "</p><p>Morale:" + morale + "</p></div>";
+    return `<div class='character' id='${role}'>
+        <button class='collapsible'>${role}</button>
+        <div class='content'>
+            <p>${description}</p>
+            <p>Health: ${health}</p>
+            <p>Morale:${morale}</p>
+        </div>
+    </div>`;
 }
 
 var Character = function(role, description) {
