@@ -22,9 +22,9 @@ body, html {
 }
 
 #stats {
-  position:absolute;
-  left:0px;
+  right:0px;
   bottom:0px;
+  text-align: right;
 }
 
 .characters {
@@ -66,11 +66,9 @@ body, html {
 
 #next-day {
     position:absolute;
-    bottom:20%;
+    left: 50%;
+    bottom: 50%;
     background-color: aliceblue;
     font-size: larger;
-}
-
-.center {
-    margin: auto 0;
+    padding: 30px;
 }
