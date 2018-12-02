@@ -43,16 +43,14 @@ $(function(){
         game.abilities.push(new Ability(ABILITIES[i].role, ABILITIES[i].text, ABILITIES[i].duration, ABILITIES[i].effects))
     }
 
-    $("#game").append("<div id='storyText'>" + TEXT_INTRO + "</div>");
-
     var input = document.getElementsByClassName('choice');
     var choice = 0;
     for (var i in TEXT_INTRO_CHOICES) {
-        $("#game").append(TEXT_INTRO_CHOICES[i]);
+        $("#main").append(TEXT_INTRO_CHOICES[i]);
         input[i].addEventListener('click', function() {
             $("#storyText").remove();
             var text = "<div id='storyText'>";
-            if(choice > 3) {
+            if(choice > 2) {
             } else if (this.value == "Talk to your companions") {
                 text += TEXT_INTRO_TALKING;
             } else if (this.value == "Stare into the distance desolately") {
@@ -71,11 +69,13 @@ $(function(){
                 choice++;
             } else if (choice == 3) {
                 text += TEXT_BEGIN;
-                choice++;
+                $(".choice").remove();
             }
             text += "</div>";
-            $("#game").append(text);
+            $("#main").append(text);
         });
     }
+    $("#main").append("<div id='storyText'>" + TEXT_INTRO + "</div>");
+
 
 });
