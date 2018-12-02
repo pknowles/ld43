@@ -44,22 +44,16 @@ var GameWorld = function(){
         return null;
     }
 
-    this.advanceDay = function() {
-        this.playMusic();
-
+    this.endOfDay = function() {
         this.todaysModifiers = [];
-
-        console.log(this)
-        if (this.isMusicPlaying)
-            window.alert("music is playing");
-
-        for (var i in this.abilities) {
-            this.abilities[i].isActive = false;
-            this.abilities[i].display();
-        }
 
         this.endOfDayCallbacks.forEach(function (cb) { cb(); });
         this.endOfDayCallbacks = []
+    }
+
+    this.advanceDay = function() {
+        this.playMusic();
+        console.log(this)
 
         var totalOutcome = 0.0;
         for (var i in this.events) {
@@ -72,6 +66,8 @@ var GameWorld = function(){
                 this.events[i].perform.bind(this.events[i], this)();
 
                 this.sledDistance -= this.getDailyMoveDistance();
+
+                this.endOfDay();
                 return;
             }
         }
@@ -82,7 +78,7 @@ var GameWorld = function(){
 
     this.showPopup = function(title, message, callback) {
         var popup = $(`<div class="popup"><h1 class="popup-title">${title}</h1><p>${message}</p><div class="button-close">Close</div></div>`);
-        var gameElement = $("#game");
+        var gameElement = $("#game #main");
         gameElement.append(popup);
         popup.find('.button-close').click(function(){
             popup.remove();
@@ -102,7 +98,7 @@ var GameWorld = function(){
         var statsText = "";
         if (this.getCharacter("Navigator")) {
             var daysLeft = this.sledDistance + Math.random() - 0.5;
-            statsText += `Estimated days left: ${daysLeft}`;
+            statsText += `Estimated days left: ${daysLeft}<br/>`;
         }
 
         var numCharsPullingSled = 0;
@@ -116,8 +112,8 @@ var GameWorld = function(){
         // FIXME: just for debugging
         if (1) {
             statsText += `Distance: ${this.sledDistance}<br/>
-            Permanent Modifiers: ${this.permanentModifiers}<br/>
-            Todays Modifiers: ${this.todaysModifiers}<br/>
+            Permanent Modifiers: ${JSON.stringify(this.permanentModifiers)}<br/>
+            Todays Modifiers: ${JSON.stringify(this.todaysModifiers)}<br/>
             `
         }
 
@@ -128,7 +124,7 @@ var GameWorld = function(){
 
         if (!this.nextDayElement.parent().length) {
             var game = this;
-            $("#game").append(this.nextDayElement);
+            $("#game #main").append(this.nextDayElement);
             $("#next-day-btn").click(function(){
                 game.nextDayElement.remove();
                 game.advanceDay();
