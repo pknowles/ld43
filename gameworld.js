@@ -9,7 +9,13 @@ var GameWorld = function(){
     this.todaysModifiers = [];
 
     this.getDailyMoveDistance = function() {
-        var distance = 1.0;
+        var distance = 0.0;
+        for (var i in this.characters) {
+            if (!this.characters[i].activeAbility) {
+                distance += this.characters[i].speed;
+            }
+        }
+
         for (var i in this.permanentModifiers) {
             distance *= this.permanentModifiers[i].scale;
         }
@@ -93,6 +99,14 @@ var GameWorld = function(){
             var daysLeft = this.sledDistance + Math.random() - 0.5;
             statsText += `Estimated days left: ${daysLeft}`;
         }
+
+        var numCharsPullingSled = 0;
+        for (var i in this.characters) {
+            if (!this.characters[i].activeAbility) {
+                numCharsPullingSled += 1;
+            }
+        }
+        statsText += `Characters pulling the sled: ${numCharsPullingSled}<br/>`;
 
         // FIXME: just for debugging
         if (1) {
