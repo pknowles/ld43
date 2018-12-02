@@ -22,11 +22,11 @@ let ABILITIES = [
 ]
 
 $(function(){
+
     var game = new GameWorld();
 
     var coll = document.getElementsByClassName("collapsible");
-    var i;
-    for (i = 0; i < CHARACTERS.length; i++) {
+    for (var i = 0; i < CHARACTERS.length; i++) {
         game.characters.push(new Character(CHARACTERS[i].role, CHARACTERS[i].description));
         coll[i].addEventListener("click", function() {
             this.classList.toggle("active");
@@ -43,6 +43,12 @@ $(function(){
         game.abilities.push(new Ability(ABILITIES[i].role, ABILITIES[i].text, ABILITIES[i].duration, ABILITIES[i].effects))
     }
 
-    game.showPopup("Intro", "An antarctic expedition has reached its destination and is returning home but food has run out." +
-        " The team have various talents that may prove useful but in doing so they won't be able to pull the sled. Can you get them home?", game.display.bind(game))
+    $("#game").append(TEXT_INTRO);
+
+    var input = document.getElementsByClassName('choice');
+    for (var i in TEXT_INTRO_CHOICES) {
+        $("#game").append(TEXT_INTRO_CHOICES[i]);
+        input[i].addEventListener('click', continueIntro);
+    }
+
 });

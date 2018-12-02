@@ -52,6 +52,7 @@ body, html {
   overflow: hidden;
   width: 20%;
   transition: max-height 0.2s ease-out;
+}
 
 #next-day {
     position:absolute;
@@ -61,4 +62,28 @@ body, html {
 
 .center {
     margin: auto 0;
+}
+
+#storyText {
+  padding: 18px;
+  width: 50%;
+  border: none;
+  text-align: left;
+  font-size: 15px;
+}
+
+.choice {
+  background: #999;
+  display: inline-block;
+  border: none;
+  width: 30%;
+  height: 30px;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.choice:hover
+{
+  width: 35%;
+  height: 35px;
 }

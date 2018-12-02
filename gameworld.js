@@ -1,4 +1,3 @@
-
 var GameWorld = function(){
     this.characters = [];
     this.abilities = [];
