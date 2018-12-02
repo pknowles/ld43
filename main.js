@@ -27,7 +27,7 @@ $(function(){
 
     var coll = document.getElementsByClassName("collapsible");
     for (var i = 0; i < CHARACTERS.length; i++) {
-        game.characters.push(new Character(CHARACTERS[i].role, CHARACTERS[i].description));
+        game.characters.push(new Character(game, CHARACTERS[i].role, CHARACTERS[i].description));
         game.characters[i].display();
         alert(1);
         coll[i].addEventListener("click", function() {
@@ -40,7 +40,6 @@ $(function(){
             }
         });
     }
-    alert(1);
     for (i = 0; i < ABILITIES.length; i++) {
         game.abilities.push(new Ability(ABILITIES[i].role, ABILITIES[i].text, ABILITIES[i].duration, ABILITIES[i].effects))
     }

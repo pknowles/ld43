@@ -6,11 +6,12 @@ function characterPortraitHTML(role, description, health, morale) {
             <p>Health: ${health}</p>
             <p>Morale:${morale}</p>
             <p>Ability:<span class="ability" /> </p>
+            <p><span class="eat">Eat the ${role}</span></p>
         </div>
     </div>`;
 }
 
-var Character = function(role, description) {
+var Character = function(gameworld, role, description) {
     this.role = role;               // i.e. "Doctor", "Engineer"
     this.description = description; // For the character portraits
     this.health = 100;
@@ -20,7 +21,7 @@ var Character = function(role, description) {
     this.speed = 0.1;               // How much they would move sled
     this.activeAbility = false;     // Set before advancing the day. If false, this character will pull the sled.
     this.eaten = false;
-    //this.portrait = $("#game #characters").append(characterPortraitHTML(role, description, this.health, this.morale));
+    //$(`#${this.role} .eat`).click(function(){gameworld.eat(this);});
     this.update = function(injured, sickness) {
         this.injured = injured;
         this.sickness = sickness;
@@ -36,5 +37,8 @@ var Character = function(role, description) {
         if (!this.eaten && (this.health > 0)) {
             $("#game #characters").append(characterPortraitHTML(this.role, this.description, this.health, this.morale));
         }
+    }
+    this.kill = function() {
+        this.portrait.remove();
     }
 };

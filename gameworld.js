@@ -2,6 +2,7 @@ var GameWorld = function(){
     this.characters = [];
     this.abilities = [];
     this.sledDistance = 10.0;
+    this.foodReserves = 0.0;
     this.nextDayElement = $('<div id="next-day"><div id="next-day-btn" class="center">Advance Day</div></div>');
     this.events = events; // FIXME: global
     this.permanentModifiers = [];
@@ -49,6 +50,37 @@ var GameWorld = function(){
 
         this.endOfDayCallbacks.forEach(function (cb) { cb(); });
         this.endOfDayCallbacks = []
+
+        this.foodReserves -= 1.0;
+        if (this.foodReserves < 0.0) {
+            this.foodReserves = 0.0;
+            // Half of everyone dies
+            var dead = Math.ceil(this.characters.length / 2);
+            while (dead > 0) {
+                dead -= 1;
+                var character = this.characters[Math.floor(Math.random() * this.characters.length)];
+                this.killCharacter(character);
+            }
+        }
+    }
+
+    this.killCharacter = function(character) {
+        console.log(`${character.role} died`);
+        this.characters.splice( $.inArray(character, this.characters), 1 );
+        character.kill();
+        if (this.characters.length == 0) {
+            // FIXME: better popup!
+            alert("Game over. Everyone is dead");
+        }
+    }
+
+    this.eatCharacter = function(character) {
+        this.killCharacter(character);
+        if (this.getCharacter("Cook")) {
+            this.foodReserves += 2.0;
+        } else {
+            this.foodReserves += 1.0;
+        }
     }
 
     this.advanceDay = function() {
@@ -98,9 +130,12 @@ var GameWorld = function(){
 
         var statsText = "";
         if (this.getCharacter("Navigator")) {
-            var daysLeft = this.sledDistance + Math.random() - 0.5;
+            var daysLeft = Math.round((this.sledDistance + Math.random() - 0.5) * 10.0) / 10.0;
             statsText += `Estimated days left: ${daysLeft}<br/>`;
         }
+
+        statsText += `Days of food left: ${this.foodReserves}<br/>`;
+
         var numCharsPullingSled = 0;
         for (var i in this.characters) {
             if (!this.characters[i].activeAbility) {
@@ -133,13 +168,13 @@ var GameWorld = function(){
     };
 
     this.playMusic = function() {
-        if (this.musicMainId === undefined) 
+        if (this.musicMainId === undefined)
             this.musicMainId = this.musicMain.play()
     }
 
-    this.startBardMusic = function (shouldStart) { 
-        if (this.musicBardId === undefined) 
-            this.musicBardId = this.musicBard.play(); 
+    this.startBardMusic = function (shouldStart) {
+        if (this.musicBardId === undefined)
+            this.musicBardId = this.musicBard.play();
 
         var a, b, idA, idB;
         if (shouldStart) {
