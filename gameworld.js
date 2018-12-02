@@ -119,6 +119,7 @@ var GameWorld = function(){
     }
 
     this.display = function() {
+
         for (var i in this.characters) {
             this.characters[i].display();
         }

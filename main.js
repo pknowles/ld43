@@ -28,6 +28,7 @@ $(function(){
     var coll = document.getElementsByClassName("collapsible");
     for (var i = 0; i < CHARACTERS.length; i++) {
         game.characters.push(new Character(game, CHARACTERS[i].role, CHARACTERS[i].description));
+        game.characters[i].display();
         coll[i].addEventListener("click", function() {
             this.classList.toggle("active");
             var content = this.nextElementSibling;
@@ -38,7 +39,6 @@ $(function(){
             }
         });
     }
-
     for (i = 0; i < ABILITIES.length; i++) {
         game.abilities.push(new Ability(ABILITIES[i].role, ABILITIES[i].text, ABILITIES[i].duration, ABILITIES[i].effects))
     }
@@ -70,12 +70,11 @@ $(function(){
             } else if (choice == 3) {
                 text += TEXT_BEGIN;
                 $(".choice").remove();
+                game.display();
             }
             text += "</div>";
             $("#main").append(text);
         });
     }
     $("#main").append("<div id='storyText'>" + TEXT_INTRO + "</div>");
-
-
 });

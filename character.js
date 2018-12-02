@@ -15,18 +15,22 @@ var Character = function(gameworld, role, description) {
     this.description = description; // For the character portraits
     this.health = 100;
     this.morale = 100;
-    this.injured = false;              // These will be values dependent on the
-    this.sickness = 0.0;            // severity.
+    this.injured = false;           // These will be values dependent on the
+    this.sickness = false;          // severity.
     this.speed = 0.1;               // How much they would move sled
     this.activeAbility = false;     // Set before advancing the day. If false, this character will pull the sled.
-    this.portrait = $(characterPortraitHTML(role, description, this.health, this.morale));
-    $("#game #characters").append(this.portrait);
-
-    $(`#${this.role} .eat`).click(function(){gameworld.eat(this);});
-
-    this.update = function() {
-        // Some algorithm to update morale, health and speed
-        // based on above.
+    this.eaten = false;
+    //$(`#${this.role} .eat`).click(function(){gameworld.eat(this);});
+    this.update = function(injured, sickness) {
+        this.injured = injured;
+        this.sickness = sickness;
+        this.health -= injured ? 5 : 0;
+        this.health -= sickness ? 5 : 0;
+        this.morale -= injured ? 5 : 0;
+        this.morale -= sickness ? 5 : 0;
+        this.speed = injured ? 0 :
+                sickness ? 0.05 :
+                0.1;
     }
     this.display = function() {
         $("#${this.role} .injured").text(this.injured ? "Yes" : "No");
