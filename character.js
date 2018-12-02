@@ -1,10 +1,9 @@
-function characterPortraitHTML(role, description, health, morale) {
+function characterPortraitHTML(role, description) {
     return `<div class='character' id='${role}'>
         <button class='collapsible'>${role}</button>
         <div class='content'>
             <p>${description}</p>
-            <p>Health: ${health}</p>
-            <p>Morale:${morale}</p>
+            <p>Injured: <span class="injured">No</span></p>
             <p>Ability:<span class="ability" /> </p>
             <p><span class="eat">Eat the ${role}</span></p>
         </div>
@@ -30,7 +29,7 @@ var Character = function(gameworld, role, description) {
         // based on above.
     }
     this.display = function() {
-
+        $("#${this.role} .injured").text(this.injured ? "Yes" : "No");
     }
     this.kill = function() {
         this.portrait.remove();
