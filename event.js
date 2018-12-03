@@ -65,7 +65,7 @@ var events = [
             game.todaysModifiers.push(new Modifier(0.8, "Snow storm."));
             if (game.characters.length > 1 && (!game.getCharacter("Leader") || Math.random() < 0.5)) {
                 var character = null;
-                while (!character && character.role != "Scout") {
+                while (!character || character.role != "Scout") {
                     character = game.characters[Math.floor(Math.random() * game.characters.length)];
                 }
                 var role = character.role;
