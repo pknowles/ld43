@@ -45,7 +45,26 @@ var GameWorld = function(){
         return null;
     }
 
+    this.showAdvanceDay = function() {
+        // Show advance day button
+        if (!this.nextDayElement.parent().length) {
+            var game = this;
+            $("#game #main").append(this.nextDayElement);
+            $("#next-day-btn").click(function(){
+                game.nextDayElement.remove();
+                game.advanceDay();
+                $("#storyText").remove();
+            });
+        }
+    }
+
     this.endOfDay = function() {
+        this.sledDistance -= this.getDailyMoveDistance();
+
+        if (this.sledDistance <= 0) {
+            alert("Good job. You guys made it to the rendezvous point. The rescue team got to you. Next time, don't be drunk when signing up for an expedition to Antarctica.");
+        }
+
         this.todaysModifiers = [];
 
         this.endOfDayCallbacks.forEach(function (cb) { cb(); });
@@ -62,6 +81,10 @@ var GameWorld = function(){
                 this.killCharacter(character);
             }
         }
+
+        this.showAdvanceDay();
+
+        this.display();
     }
 
     this.addCharacter = function(character) {
@@ -112,15 +135,7 @@ var GameWorld = function(){
         for (var i in this.events) {
             outcome -= this.events[i].probabilityFactor;
             if (outcome <= 0.0) {
-                this.events[i].perform.bind(this.events[i], this)();
-
-                this.sledDistance -= this.getDailyMoveDistance();
-
-                if (this.sledDistance <= 0) {
-                    alert("Good job. You guys made it to the rendezvous point. The rescue team got to you. Next time, don't be drunk when signing up for an expedition to Antarctica.");
-                }
-
-                this.endOfDay();
+                this.events[i].perform.bind(this.events[i])(this, this.endOfDay.bind(this));
                 return;
             }
         }
@@ -151,7 +166,7 @@ var GameWorld = function(){
 
         var statsText = "";
         if (this.getCharacter("Navigator")) {
-            var daysLeft = Math.round((this.sledDistance + Math.random() - 0.5) * 10.0) / 10.0;
+            var daysLeft = Math.max(1.0, Math.round((this.sledDistance / this.getDailyMoveDistance() + Math.random() - 0.5) * 10.0) / 10.0);
             statsText += `Estimated days left: ${daysLeft}<br/>`;
         } else {
             statsText += "Without a navigator you are not sure how close you are to rescue.<br/>"
@@ -179,16 +194,6 @@ var GameWorld = function(){
             statsText = "Nobody knows anything useful."
         }
         $("#stats").html(statsText);
-
-        if (!this.nextDayElement.parent().length) {
-            var game = this;
-            $("#game #main").append(this.nextDayElement);
-            $("#next-day-btn").click(function(){
-                game.nextDayElement.remove();
-                game.advanceDay();
-                $("#storyText").remove();
-            });
-        }
     };
 
     this.playMusic = function() {

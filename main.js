@@ -68,6 +68,7 @@ $(function(){
             } else if (choice == 3) {
                 text += TEXT_BEGIN;
                 $(".choice").remove();
+                game.showAdvanceDay();
                 game.display();
             }
             text += "</div>";
