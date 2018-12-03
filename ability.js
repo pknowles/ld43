@@ -48,12 +48,17 @@ var Ability = function(role, text, duration, effects) {
 Ability.setGameVar = function(varName) { return function (world, isActivating) {
     world[varName] = isActivating
 }}
+
 Ability.chooseCharacter = function(callback) { return function (world, isActivating) {
     if (isActivating) {
         callback('Bard')
     }
 }}
+
 Ability.addModifier = function(scale, description) { return function (world, isActivating) {
     if (isActivating)
         world.todaysModifiers.push(new Modifier(scale, description))
+}}
+
+Ability.usePlaceholder = function() { return function (world, isActivating) {
 }}

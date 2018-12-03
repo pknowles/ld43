@@ -15,10 +15,18 @@ let CHARACTERS = [
 ]
 
 let ABILITIES = [
-    { role: "Bard",     text: "Play Music",      duration: "one day", effects: [ Ability.addModifier(1.2, "Dancing is quicker than walking"), function (world, isActivating) { world.startBardMusic(isActivating) } ] },
-    { role: "Scout",    text: "Scout ahead",     duration: "instant", effects: [ function(world, isActivating) { world.displayUpcomingEvents() }] },
-    { role: "Cook",     text: "Prepare person",  duration: "one day", effects: [ Ability.setGameVar('isFoodPrepared')] },
-    { role: "Doctor",   text: "Heal Character",  duration: "instant", effects: [ Ability.chooseCharacter(function(world, character) { world.heal(character) }) ]}
+    { role: "Bard",            text: "Play some happy tunes",           duration: "one day", effects: [ Ability.addModifier(1.2, "Dancing is quicker than walking"), function (world, isActivating) { world.startBardMusic(isActivating) } ] },
+    { role: "Scout",           text: "See what lies ahead",             duration: "instant", effects: [ function(world, isActivating) { world.displayUpcomingEvents() }] },
+    { role: "Cook",            text: "Prepare human for consumption",   duration: "one day", effects: [ Ability.setGameVar('isFoodPrepared')] },
+    { role: "Doctor",          text: "Heal a character",                duration: "instant", effects: [ Ability.chooseCharacter(function(world, character) { world.heal(character) }) ]},
+    { role: "Navigator",       text: "Find a faster path",              duration: "one day", effects: [ Ability.addModifier(1.2, "Faster path found") ]},
+    { role: "Engineer",        text: "Make a faster sled",              duration: "one day", effects: [ Ability.addModifier(1.2, "The sled has been modified for efficiency. It will now be easier to pull") ]},
+    { role: "Mechanic",        text: "Fix things",                      duration: "one day", effects: [ Ability.usePlaceholder() ]},
+    { role: "Nurse",           text: "Helps doctor",                    duration: "instant", effects: [ Ability.usePlaceholder() ]},
+    { role: "Apprentice",      text: "Helps engineer",                  duration: "one day", effects: [ Ability.usePlaceholder() ]},
+    { role: "Demolitionist",   text: "Make things go boom",             duration: "instant", effects: [ Ability.usePlaceholder() ]},
+    { role: "Counselor",       text: "Makes people feel",               duration: "instant", effects: [ Ability.usePlaceholder() ]},
+    { role: "Guard",           text: "Protects from animals",           duration: "one day", effects: [ Ability.usePlaceholder() ]}
 ]
 
 $(function(){
@@ -32,6 +40,7 @@ $(function(){
         game.abilities.push(new Ability(ABILITIES[i].role, ABILITIES[i].text, ABILITIES[i].duration, ABILITIES[i].effects))
     }
 
+    // Just an intro into the game. Introduces the cannabalism aspect...
     var input = document.getElementsByClassName('choice');
     var choice = 0;
     for (var i in TEXT_INTRO_CHOICES) {
